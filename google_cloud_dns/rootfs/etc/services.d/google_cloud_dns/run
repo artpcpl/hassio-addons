@@ -68,7 +68,7 @@ function le_renew() {
     bashio::log.info "Renewing certificate for domain: ${FQDN}"
 
     EXIT_CODE=0
-    dehydrated --cron --hook /hooks.sh --challenge dns-01 --domain "${FQDN}" \
+    dehydrated --cron --hook hooks.sh --challenge dns-01 --domain "${FQDN}" \
         --out "${CERT_DIR}" --config "${WORK_DIR}/config" \
         --force \
         || EXIT_CODE=${?}
@@ -136,7 +136,7 @@ do
     if [ "${IPV4}" != '' ] && [ "${IPV4}" != "${LAST_IPV4}" ]
     then
         EXIT_CODE=0
-        /google_cloud_update_dns.sh set "${FQDN}" A "${IPV4}" || EXIT_CODE=${?}
+        google_cloud_update_dns.sh set "${FQDN}" A "${IPV4}" || EXIT_CODE=${?}
 
         if [ $EXIT_CODE -eq 0 ]
         then
@@ -150,7 +150,7 @@ do
     if [ "${IPV6}" != '' ] && [ "${IPV6}" != "${LAST_IPV6}" ]
     then
         EXIT_CODE=0
-        /google_cloud_update_dns.sh set "${FQDN}" AAAA "${IPV6}" || EXIT_CODE=${?}
+        google_cloud_update_dns.sh set "${FQDN}" AAAA "${IPV6}" || EXIT_CODE=${?}
         
         if [ $EXIT_CODE -eq 0 ]
         then

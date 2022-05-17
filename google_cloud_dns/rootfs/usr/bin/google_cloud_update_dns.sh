@@ -72,6 +72,7 @@ function report_error() {
 
 if [ "${ACTION}" = 'set' ] || [ "${ACTION}" = 'remove' ]
 then
+    echo "https://dns.googleapis.com/dns/v1/projects/${GOOGLE_CLOUD_DNS_PROJECT}/managedZones/${GOOGLE_CLOUD_DNS_ZONE}/rrsets/${HOSTNAME}./${RECORD_TYPE}"
     ANSWER=$(curl -s -X DELETE "https://dns.googleapis.com/dns/v1/projects/${GOOGLE_CLOUD_DNS_PROJECT}/managedZones/${GOOGLE_CLOUD_DNS_ZONE}/rrsets/${HOSTNAME}./${RECORD_TYPE}" \
         -H "Authorization: Bearer ${AUTH_TOKEN}" \
         -H 'Accept: application/json') \
@@ -82,6 +83,7 @@ fi
 
 if [ "${ACTION}" = 'set' ] || [ "${ACTION}" = 'add' ]
 then
+    echo "https://dns.googleapis.com/dns/v1/projects/${GOOGLE_CLOUD_DNS_PROJECT}/managedZones/${GOOGLE_CLOUD_DNS_ZONE}/rrsets"
     ANSWER=$(curl -s -X POST "https://dns.googleapis.com/dns/v1/projects/${GOOGLE_CLOUD_DNS_PROJECT}/managedZones/${GOOGLE_CLOUD_DNS_ZONE}/rrsets" \
         -H "Authorization: Bearer ${AUTH_TOKEN}" \
         -H 'Accept: application/json' \
